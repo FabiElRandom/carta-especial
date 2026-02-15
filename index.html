@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Carta de San Valentín</title>
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(135deg,#ffb3c1,#ffd6e0);
+  font-family:'Segoe UI', sans-serif;
+  overflow:hidden;
+}
+
+/* Corazones */
+.heart{
+  position:absolute;
+  color:rgba(255,0,100,0.35);
+  font-size:18px;
+  animation: float 6s linear infinite;
+}
+@keyframes float{
+  0%{transform:translateY(100vh); opacity:0;}
+  20%{opacity:1;}
+  100%{transform:translateY(-10vh); opacity:0;}
+}
+
+/* Escena */
+.scene{
+  position:relative;
+  width:300px;
+  height:300px;
+}
+
+/* Flores */
+.flowers{
+  position:absolute;
+  bottom:-30px;          /* 👈 debajo del sobre */
+  width:100%;
+  text-align:center;
+  font-size:28px;
+  z-index:0;
+  opacity:0.95;
+}
+
+/* Máscara del sobre */
+.envelope-mask{
+  position:absolute;
+  bottom:0;
+  width:100%;
+  height:220px;
+  overflow:hidden;
+  z-index:2;
+}
+
+/* Sobre */
+.envelope{
+  position:absolute;
+  bottom:0;
+  width:100%;
+  height:220px;
+  background:#e63946;
+  border-radius:14px;
+  box-shadow:0 20px 40px rgba(0,0,0,.3);
+  cursor:pointer;
+}
+
+/* Tapa */
+.flap{
+  position:absolute;
+  top:0px; /* 👈 baja un poco el triángulo */
+  width:98%;
+  left:3.5%;
+  height:100%;
+  background:#d62828;
+  clip-path:polygon(0 0,50% 50%,95% 0);
+  transform-origin:top;
+  transition:transform .8s ease;
+  z-index:3;
+}
+
+
+/* Hoja */
+.letter{
+  position:absolute;
+  bottom:-220px;
+  left:50%;
+  transform:translateX(-50%);
+  width:85%;
+  height:180px;
+  background:white;
+  border-radius:12px;
+  padding:18px;
+  text-align:center;
+  box-shadow:0 15px 35px rgba(0,0,0,.25);
+  transition: bottom 1s ease, opacity .4s ease;
+  opacity:0;
+  z-index:1;
+}
+
+h2{
+  color:#e63946;
+  margin:6px 0;
+}
+
+p{
+  color:#444;
+  font-size:14px;
+  line-height:1.4;
+}
+
+/* Estado abierto */
+.scene.open .flap{
+  transform:rotateX(180deg);
+}
+
+.scene.open .letter{
+  bottom:160px;
+  opacity:1;
+}
+</style>
+</head>
+
+<body>
+
+<div class="scene" id="scene">
+
+  <!-- Flores -->
+  <div class="flowers">
+    🌸 🌼 🌷 🌸 🌼 🌷
+  </div>
+
+  <div class="envelope-mask">
+    <div class="envelope">
+      <div class="flap"></div>
+    </div>
+  </div>
+
+  <div class="letter">
+    <h2>Feliz San Valentín ❤️</h2>
+    <p>
+      Este mensaje es solo para ti.  
+      Gracias por existir y hacer mis días más lindos.
+    </p>
+  </div>
+
+</div>
+
+<script>
+const scene = document.getElementById("scene");
+scene.addEventListener("click",()=>{
+  scene.classList.toggle("open");
+});
+
+// Corazones
+setInterval(()=>{
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "❤";
+  heart.style.left = Math.random()*100 + "vw";
+  heart.style.fontSize = (14 + Math.random()*20) + "px";
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),6000);
+},600);
+</script>
+
+</body>
+</html>
